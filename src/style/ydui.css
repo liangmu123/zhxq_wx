@@ -1,0 +1,44 @@
+.yd-tab-nav-item{
+    color:#303030 !important;
+    font-size:1.6rem !important;
+    line-height:5rem !important;
+}
+.yd-tab-nav-item.yd-tab-active{
+    color:#E42417 !important;
+    border-bottom:3px solid #E42417;
+}
+.yd-tab-nav .yd-tab-active:before{
+    height:0;
+    background-color:transparent !important;
+}
+.yd-tab-nav{
+    background-color: #FFF1F0;
+}
+.ysp_tab_bgColor_white .yd-tab-nav{
+    background-color: #FFF;
+}
+.yd-tabbar{
+    border-top:1px solid #eee;
+}
+
+
+.yd-actionsheet{
+    height:22rem;
+    overflow-y:auto;
+    padding:1rem 0;
+    background-color:#fff !important; 
+}
+.yd-actionsheet-item{
+    padding:0.8rem;
+    font-size:1.8rem !important;
+    line-height:2rem !important;
+    height:auto !important;
+}
+.ysp_sendcode{
+    width:100%;
+    height:40px !important;
+    display:block !important;
+}
+.ysp_sendcode span{
+    font-size:1.6rem;
+}
