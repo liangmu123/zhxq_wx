@@ -2,7 +2,7 @@
 <template>
     <div class="ysp_exchangeCredit">
         <div class="top">
-            <img src="../../assets/exchange/jifen.png" alt="积分">
+            <img src="../../assets/images/jifen.png" alt="积分">
             <div class="credit">
                 <span>当前学分</span>
                 <span>{{credit}}</span>
@@ -41,13 +41,13 @@
         data(){
             return {
                 dataList:[
-                    {title:"雨伞",need:100,src:require("../../assets/exchange/jifen.png")},
-                    {title:"雨伞",need:100,src:require("../../assets/exchange/jifen.png")},
-                    {title:"雨伞",need:400,src:require("../../assets/exchange/jifen.png")},
-                    {title:"雨伞",need:100,src:require("../../assets/exchange/jifen.png")},
-                    {title:"雨伞",need:300,src:require("../../assets/exchange/jifen.png")},
-                    {title:"雨伞",need:200,src:require("../../assets/exchange/jifen.png")},
-                    {title:"雨伞",need:600,src:require("../../assets/exchange/jifen.png")}
+                    {title:"雨伞",need:100,src:require("../../assets/images/jifen.png")},
+                    {title:"雨伞",need:100,src:require("../../assets/images/jifen.png")},
+                    {title:"雨伞",need:400,src:require("../../assets/images/jifen.png")},
+                    {title:"雨伞",need:100,src:require("../../assets/images/jifen.png")},
+                    {title:"雨伞",need:300,src:require("../../assets/images/jifen.png")},
+                    {title:"雨伞",need:200,src:require("../../assets/images/jifen.png")},
+                    {title:"雨伞",need:600,src:require("../../assets/images/jifen.png")}
                 ],
                 credit:300,
                 page:1,

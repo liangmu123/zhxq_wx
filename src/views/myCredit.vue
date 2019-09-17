@@ -2,7 +2,7 @@
 <template>
     <div class="myCredit ysp_navigation_bottom">
         <div class="top">
-            <img src="../assets/exchange/jifen.png" alt="积分">
+            <img src="../assets/images/jifen.png" alt="积分">
             <div class="credit">
                 <span>当前学分</span>
                 <span>{{credit}}</span>

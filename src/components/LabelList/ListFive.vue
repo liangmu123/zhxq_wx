@@ -7,7 +7,7 @@
             :key="index">
                 <div class="left">
                     <div class="flex">
-                        <img src="../../assets/center/live.png" alt="图片">
+                        <img src="../../assets/images/live.png" alt="图片">
                         <span>{{item.title}}</span>
                     </div>
                 </div>

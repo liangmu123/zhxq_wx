@@ -24,9 +24,9 @@
                 pagesize:10,
                 totalpage:1,
                 list:[
-                    {title:'123',add_time:'2019-8-9',img:require('@assets/navigation/center.png'),tpe:1,id:1},
-                    {title:'123',add_time:'2019-8-9',img:require('@assets/navigation/center.png'),tpe:2,id:2},
-                    {title:'123',add_time:'2019-8-9',img:require('@assets/navigation/center.png'),tpe:3,id:3}
+                    {title:'123',add_time:'2019-8-9',img:require('@assets/images/center.png'),tpe:1,id:1},
+                    {title:'123',add_time:'2019-8-9',img:require('@assets/images/center.png'),tpe:2,id:2},
+                    {title:'123',add_time:'2019-8-9',img:require('@assets/images/center.png'),tpe:3,id:3}
                 ]
             }
         },

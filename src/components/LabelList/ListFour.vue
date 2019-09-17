@@ -9,13 +9,13 @@
                     <div class="flex">
                         <span>
                             <template v-if="index <= 2">
-                                <img :src="rankSrc[index]" alt="图片">
+                                <!-- <img :src="rankSrc[index]" alt="图片"> -->
                             </template>
                             <template v-else>
                                 {{index+1}}
                             </template>
                         </span>
-                        <img src="../../assets/center/live.png" alt="图片">
+                        <img src="../../assets/images/live.png" alt="图片">
                         <span>{{item.title}}shjdsd的思考角度看手机打开</span>
                     </div>
                 </div>
@@ -37,9 +37,9 @@
         data(){
             return {
                 rankSrc:[
-                    require("../../assets/rank/1.png"),
-                    require("../../assets/rank/2.png"),
-                    require("../../assets/rank/3.png"),
+                    // require("../../assets/rank/1.png"),
+                    // require("../../assets/rank/2.png"),
+                    // require("../../assets/rank/3.png"),
                 ]
             }
         },

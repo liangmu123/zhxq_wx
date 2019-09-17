@@ -7,7 +7,7 @@
                     <img :src="item.src" alt="图片">
                     <p class="textoverflow">{{item.title}}</p>
                     <p>
-                        <img src="../../assets/exchange/num.png" alt="图片">
+                        <img src="../../assets/images/num.png" alt="图片">
                         <span>{{item.need}}</span>
                     </p>
                 </div>
@@ -83,7 +83,7 @@
             }
         }
         .exchange.bg{
-            background-image:url(../../assets/exchange/kuang.png);
+            background-image:url(../../assets/images/kuang.png);
             background-size:100% 100%;
         }
     }

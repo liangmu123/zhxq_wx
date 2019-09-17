@@ -44,11 +44,11 @@
         data(){
             return {
                 navlist:[
-                    {id:1,title:'党建动态',link:'/informationList1',src:require('@assets/nav/1.png')},
-                    {id:1111,title:'党员之家',link:'/threeModular',src:require('@assets/nav/2.png')},
-                    {id:47,title:'学习强国',link:'/informationList2',src:require('@assets/nav/3.png')},
-                    {id:8,title:'红色电影',link:'/informationList3',src:require('@assets/nav/4.png')},
-                    {id:9,title:'会议直播',link:'/live',src:require('@assets/nav/5.png')}
+                    {id:1,title:'党建动态',link:'/informationList1',src:require('@assets/images/1.png')},
+                    {id:1111,title:'党员之家',link:'/threeModular',src:require('@assets/images/2.png')},
+                    {id:47,title:'学习强国',link:'/informationList2',src:require('@assets/images/3.png')},
+                    {id:8,title:'红色电影',link:'/informationList3',src:require('@assets/images/4.png')},
+                    {id:9,title:'会议直播',link:'/live',src:require('@assets/images/5.png')}
                 ],
                 page:1,
                 pagesize:10,

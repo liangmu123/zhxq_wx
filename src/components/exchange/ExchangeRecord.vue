@@ -14,12 +14,12 @@
         data(){
             return {
                 list:[
-                    {title:"雨伞",time:"2019-09-01",status:0,src:require("../../assets/exchange/jifen.png")},
-                    {title:"雨伞",time:"2019-09-01",status:1,src:require("../../assets/exchange/jifen.png")},
-                    {title:"雨伞",time:"2019-09-01",status:0,src:require("../../assets/exchange/jifen.png")},
-                    {title:"雨伞",time:"2019-09-01",status:1,src:require("../../assets/exchange/jifen.png")},
-                    {title:"雨伞",time:"2019-09-01",status:0,src:require("../../assets/exchange/jifen.png")},
-                    {title:"雨伞",time:"2019-09-01",status:1,src:require("../../assets/exchange/jifen.png")}
+                    {title:"雨伞",time:"2019-09-01",status:0,src:require("../../assets/images/jifen.png")},
+                    {title:"雨伞",time:"2019-09-01",status:1,src:require("../../assets/images/jifen.png")},
+                    {title:"雨伞",time:"2019-09-01",status:0,src:require("../../assets/images/jifen.png")},
+                    {title:"雨伞",time:"2019-09-01",status:1,src:require("../../assets/images/jifen.png")},
+                    {title:"雨伞",time:"2019-09-01",status:0,src:require("../../assets/images/jifen.png")},
+                    {title:"雨伞",time:"2019-09-01",status:1,src:require("../../assets/images/jifen.png")}
                 ],
                 page:1,
                 pagesize:10,

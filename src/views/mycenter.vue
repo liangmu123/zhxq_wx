@@ -2,10 +2,10 @@
 <template>
     <div class="center ysp_navigation_bottom">
         <div class="header">
-            <img src="../assets/center/top.png" alt="背景图">
+            <img src="../assets/images/top.png" alt="背景图">
             <div class="protrait">
                 <div>
-                    <img src="../assets/center/live.png" alt="头像">
+                    <img src="../assets/images/live.png" alt="头像">
                 </div>
                 <div>123</div>
             </div>
@@ -28,17 +28,17 @@
                 navlist:[
                     {
                         title:'我的积分',
-                        src:require('../assets/center/live.png'),
+                        src:require('../assets/images/live.png'),
                         link:'/center/myCredit'
                     },
                     {
                         title:'我的排行',
-                        src:require('../assets/center/live.png'),
+                        src:require('../assets/images/live.png'),
                         link:'/center/myRank'
                     },
                     {
                         title:'我的观看记录',
-                        src:require('../assets/center/live.png'),
+                        src:require('../assets/images/live.png'),
                         link:'/center/myWatchRecord'
                     }
                 ],
