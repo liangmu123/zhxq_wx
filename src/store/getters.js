@@ -1,6 +1,5 @@
-const getters ={
-    token: state => state.user.token,
-    loading:state => state.load.loading
+export default {
+    user: state => state.user,
+    routers: state => state.routers,
+    loading: state => state.loading
 }
-  
-export default getters

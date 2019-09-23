@@ -6,7 +6,7 @@
 
 <style lang="scss">
     #app{
-        font-size:1.6rem;
+        font-size:.4rem;
         color:#333;
         height:100%;
     }

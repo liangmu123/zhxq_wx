@@ -12,7 +12,7 @@ module.exports = {
         // },
         // open: false, // 是否打开浏览器
         host: "localhost",
-        port: "8090", // 代理断就
+        port: "8080", // 代理断就
         https: false,
         hotOnly: false, // 热更新
         proxy: {
