@@ -2,6 +2,10 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import layout from './views/layout.vue'
 import infoDetail from './views/home/infoDetail.vue'
+import store from './store'
+import { userInfo } from '@api/api'
+import { getQueryString } from '@/api/getData'
+
 
 Vue.use(Router)
 
@@ -73,7 +77,7 @@ export const asyncRouterMap =
           component: () => import('@views/home/vote'),
           meta: {
             keepAlive: false,
-            title: '投票评选'
+            title: '投票评议'
           }
         },
         {
@@ -83,6 +87,15 @@ export const asyncRouterMap =
           meta: {
             keepAlive: false,
             title: '公告详情'
+          }
+        },
+        {
+          path: 'voteDetail/:id',
+          name: 'voteDetail',
+          component: () => import('@views/home/voteDetail'),
+          meta: {
+            keepAlive: false,
+            title: '投票详情'
           }
         },
         {
@@ -178,15 +191,6 @@ export const asyncRouterMap =
           }
         },
         {
-          path: 'myVisitors',
-          name: 'myVisitors',
-          component: () => import('@views/myCenter/myVisitors'),
-          meta: {
-            keepAlive: false,
-            title: '我的访客'
-          }
-        },
-        {
           path: 'myWO',
           name: 'myWO',
           component: () => import('@views/myCenter/myReport'),
@@ -205,31 +209,34 @@ export const asyncRouterMap =
           }
         },
         {
-          path: 'myVisitorsDetail/:id',
-          name: 'myVisitorsDetail',
-          component: () => import('@views/myCenter/myVisitorsDetail'),
+          path: 'myhandleDetail/:id',
+          name: 'myhandleDetail',
+          component: () => import('@views/myCenter/myreportDetail'),
           meta: {
             keepAlive: false,
-            title: '访客详情'
+            title: '工单详情'
           }
-        }
+        },
+        {
+          path: 'feedback/:id',
+          name: 'feedback',
+          component: () => import('@views/myCenter/feedback'),
+          meta: {
+            keepAlive: false,
+            title: '工单反馈'
+          }
+        },
+
+
+
       ]
     },
     {
-      path: '/register/:type?',
-      component: () => import('@views/register/index'),
-      name: 'register',
+      path: '/login',
+      component: () => import('@views/login/index'),
+      name: 'login',
       meta: {
-        title: '注册'
-      },
-      hidden: false,
-    }
-    , {
-      path: '/address',
-      component: () => import('@views/register/address'),
-      name: 'address',
-      meta: {
-        title: '添加住址'
+        title: '登录'
       },
       hidden: false,
     }
@@ -247,15 +254,65 @@ router.beforeEach((to, from, next) => {
   // WX_SHARE(to)
 
   // 获取token
-  // if(!store.state.user.token){
-  //     store.dispatch('getToken',{access_token:to.query.access_token})
-  //     .then(function(){
-  //         next()
-  //     })
-  // }else{
-  //     next()
-  // }
-  next()
+  // console.log(store.state)
+  if (!store.state.token) {
+    console.log(1111111)
+    store.dispatch('getToken', to.query.access_token)
+      .then(() => {
+        if (getQueryString('token')) {
+          userInfo().then(res => {
+            if (res.data.role == null) {
+              next('/login')
+            } else if (!localStorage.user) {
+              let user = {
+                role: res.data.rolename,
+                userName: res.data.person.name,
+                mobile: res.data.person.mobile,
+                image: res.data.person.image,
+                address: res.data.person.room_text
+              };
+              store.dispatch("setUser", user);
+              var userStr = JSON.stringify(user);
+              localStorage.setItem("user", userStr);
+              next();
+            } else {
+              next();
+            }
+
+          })
+        }
+
+        // next()
+      })
+  } else {
+    console.log(2222)
+    if (to.path == "/login") {
+      next();
+    } else {
+      userInfo().then(res => {
+        if (res.data.role == null) {
+          next('/login')
+        } else if (!localStorage.user) {
+          let user = {
+            role: res.data.rolename,
+            userName: res.data.person.name,
+            mobile: res.data.person.mobile,
+            image: res.data.person.image,
+            address: res.data.person.room_text
+          };
+          store.dispatch("setUser", user);
+          var userStr = JSON.stringify(user);
+          localStorage.setItem("user", userStr);
+          next();
+        } else {
+          next();
+        }
+
+      })
+    }
+
+  }
+  // next()
 })
 
 router.afterEach((to, from) => {

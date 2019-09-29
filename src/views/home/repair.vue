@@ -14,19 +14,24 @@
 </template>
 
 <script>
+import { serviceTypeList } from "@api/api";
 export default {
   data() {
     return {
       list: [
-        { id: "1", title: "防水堵漏" },
-        { id: "2", title: "快速开锁" },
-        { id: "3", title: "墙体修复" },
-        { id: "4", title: "空调维修" },
-        { id: "5", title: "家电维修" },
-        { id: "6", title: "家具维修" },
-        { id: "7", title: "玻璃理换" }
       ]
     };
+  },
+  created() {
+    serviceTypeList().then(res => {
+      // console.log(res.data.items);
+      this.list = res.data.items.map(item => {
+        return {
+          id: item.id,
+          title: item.name
+        };
+      });
+    });
   },
   methods: {
     handleDetail(id) {

@@ -3,12 +3,12 @@ import { Message } from 'element-ui'
 import store from '../store'
 // console.log(axios.defaults.headers)
 
-
-// axios.defaults.headers.common["token"] = '44ba7325-a54a-411e-9950-f43acc8af1ed';
+// axios.defaults.headers["Content-Type"] = 'application/x-www-form-urlencoded';
+// axios.defaults.headers["token"] = localStorage.getItem("access_token") || '';
 let config = {
-    baseURL: "http://hz.cst-info.cn/api/",
+    // baseURL: "http://hz.cst-info.cn/api/",
     timeout: 5000, // Timeout
-    // withCredentials: true, // Check cross-site Access-Control
+    // withCredentials: true, // Check cross-sit e Access-Control
 };
 
 const _axios = axios.create(config);
@@ -16,14 +16,19 @@ const _axios = axios.create(config);
 // //request拦截器
 _axios.interceptors.request.use(
     function (config) {
-        store.dispatch("setLoading", true);
+        console.log(config.url)
+        if (config.url != '/api/common/upload') {
+            store.dispatch("setLoading", true);
+        }
+
+
         // config.params.token ='44ba7325-a54a-411e-9950-f43acc8af1ed'
         // console.log(config.params)
         // Object.assign(config.headers,{'token':'44ba7325-a54a-411e-9950-f43acc8af1ed'})
         // console.log(config)
-        // if (localStorage.token) {
-        //     config.headers.token = localStorage.token;
-        // }
+        if (localStorage.access_token) {
+            config.headers.token = localStorage.access_token;
+        }
         // config.header.token = ;
         return config;
     },
@@ -37,7 +42,7 @@ _axios.interceptors.request.use(
 // //respone拦截器
 _axios.interceptors.response.use(
     response => {
-        console.log(1111)
+        // console.log(1111)
 
         if (response.status != 200) {
             return Promise.reject("error");
@@ -48,11 +53,11 @@ _axios.interceptors.response.use(
             // }).then()
 
             // Promise.resolve().then(res => {
-                
+
 
 
             // }).then(data => {
-                
+
             // })
             store.dispatch("setLoading", false);
             return response.data;

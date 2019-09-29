@@ -4,14 +4,13 @@
     <p class="biref">
       <span>{{article.createtime}}</span>
       <span>{{article.weigh}}</span>
-      <span>{{article.weigh}}</span>
     </p>
     <p v-html="article.content"></p>
   </div>
 </template>
 
 <script>
-import { noticeDetail } from "@api/api";
+import { noticeDetail, viewDetail } from "@api/api";
 export default {
   data() {
     return {
@@ -21,13 +20,25 @@ export default {
   created() {
     // console.log()
     let id = this.$route.params.id;
-    let params = {
-      id: id
-    };
-    noticeDetail(params).then(res => {
-      console.log(res.data);
-      this.article = res.data;
-    });
+    if (id) {
+      let params = {
+        id: id
+      };
+      noticeDetail(params).then(res => {
+        // console.log(res.data);
+        this.article = res.data;
+      });
+    } else {
+      viewDetail().then(res => {
+        // console.log(res.data);
+        let data = res.data;
+        this.article = {
+          title: data.title,
+          createtime: data.address,
+          content: data.content
+        };
+      });
+    }
   }
 };
 </script>
@@ -53,16 +64,11 @@ export default {
       display: block;
       float: left;
     }
-    span:nth-child(2) {
-      color: #666;
-      display: block;
-      float: right;
-    }
     span:last-child {
       color: #666;
       display: block;
       float: right;
-      margin-right: 1rem;
+      margin-right: .1rem;
     }
   }
 }

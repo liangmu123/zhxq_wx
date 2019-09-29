@@ -4,7 +4,7 @@
     <div class="content">
       <p>
         <span>性质</span>
-        <span>{{capacity==1?'业主':'租户'}}</span>
+        <span>{{capacity}}</span>
       </p>
       <p>
         <span>姓名</span>
@@ -22,39 +22,53 @@
         <span>车牌号</span>
         <span>{{plate}}</span>
       </p>
-      <p v-if="capacity==1">
+      <p v-if="capacity=='业主'">
         <span>关系</span>
-        <span>{{relationship}}</span>
+        <span>{{relationship=='0'?'非户主':'户主'}}</span>
       </p>
-      <p v-if="capacity!=1">
+      <p v-if="capacity!='业主'">
         <span>租房合同</span>
         <img :src="agreementImages" alt srcset />
-        <span id="upload">点击上传</span>
       </p>
-      <p v-if="capacity!=1">
+      <p v-if="capacity!='业主'">
         <span>租房有效期</span>
-        <span>{{time}}</span>
+        <span>{{deadline}}</span>
       </p>
     </div>
   </div>
 </template>
 
 <script>
+import { userInfo } from "@api/api";
 import userHeader from "@components/userHeader.vue";
 export default {
   name: "information",
   components: { userHeader },
   data() {
     return {
-      capacity: "1",
-      name: "周凯",
-      sex: "男",
-      iphone: "13812666324",
-      plate: "苏E3P1L2",
-      relationship: "户主",
-      agreementImages: require("@assets/images/user.png"),
-      time: "6个月"
+      capacity: "",
+      name: "",
+      sex: "",
+      iphone: "",
+      plate: "",
+      relationship: "",
+      agreementImages: '',
+      deadline: ""
     };
+  },
+  created() {
+    userInfo().then(res => {
+      console.log(res.data)
+      let data = res.data;
+      this.capacity = data.rolename;
+      this.name = data.person.name;
+      this.sex = data.person.gender_text;
+      this.iphone = data.person.mobile;
+      this.plate = data.person.carnoarr.join("、");
+      this.relationship = data.person.ishead;
+      this.deadline = data.person.deadline;
+      this.agreementImages = data.person.images;
+    });
   }
 };
 </script>

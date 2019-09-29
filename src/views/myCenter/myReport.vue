@@ -3,14 +3,15 @@
     <div class="myreport-list" v-for="(item,index) in list" :key="item+index">
       <p class="title" @click="handleDetail(item.id)">
         <span>上报</span>
-        {{item.isHandle?'已处理':'未处理'}}&nbsp;
-        <i class="el-icon-arrow-right"></i>
+        {{item.status==1?'未处理':item.status==2?'已分发':item.status==3?'处理中':'待评价'}}&nbsp;
+        <i
+          class="el-icon-arrow-right"
+        ></i>
       </p>
       <p class="time">
         <img src="../../assets/images/time.png" alt srcset />
         {{item.time}}
       </p>
-
       <p class="biref">
         <i class="circle"></i>
         {{item.title}}
@@ -23,44 +24,51 @@
 </template>
 
 <script>
+import { myReport, handleList } from "@api/api";
 export default {
   data() {
     return {
-      list: [
-        {
-          id: 1,
-          isHandle: false,
-          time: "2019年9月21日 13：03",
-          title: "小区门口垃圾太多了",
-          imageList: [
-            require("../../assets/images/user.png"),
-            require("../../assets/images/user.png")
-          ]
-        },
-        {
-          id: 2,
-          isHandle: true,
-          title: "小区门口垃圾太多了",
-          time: "2019年9月21日 13：03",
-          imageList: []
-        },
-        {
-          id: 3,
-          isHandle: true,
-          title: "小区门口垃圾太多了",
-          time: "2019年9月21日 13：03",
-          imageList: [require("../../assets/images/user.png")]
-        }
-      ]
+      list: []
     };
   },
-  created(){
-    console.log(this.$route)
+  created() {
+    let params = {
+      page: 1,
+      pagesize: 10
+    };
+    if (this.$route.name == "myReport") {
+      myReport(params).then(res => {
+        console.log(res.data.items);
+        this.list = res.data.items.map(item => {
+          return {
+            id: item.id,
+            status: item.status,
+            title: item.title,
+            time: item.createtime,
+            imageList: item.images
+          };
+        });
+      });
+    } else {
+      handleList(params).then(res => {
+        this.list = res.data.items.map(item => {
+          return {
+            id: item.id,
+            status: item.status,
+            title: item.title,
+            time: item.createtime,
+            imageList: item.images
+          };
+        });
+      });
+    }
   },
   methods: {
     handleDetail(id) {
+      let name =
+        this.$route.name == "myReport" ? "myreportDetail" : "myhandleDetail";
       this.$router.push({
-        name: "myreportDetail",
+        name,
         params: { id }
       });
     }

@@ -1,5 +1,6 @@
 export default {
     user: state => state.user,
     routers: state => state.routers,
-    loading: state => state.loading
+    loading: state => state.loading,
+    token: state => state.token
 }

@@ -1,12 +1,14 @@
 <template>
-  <div class="vote">
-    <div class="vote-list" v-for="(item, key) in list" :key="item+key">
-      <img :src="item.img" />
-      <p class="title">
-        <span class="textoverflow">{{item.address}}</span>
-        <span class="textoverflow">{{item.voteNumber}}</span>
+  <div class="vote box-content">
+    <div class="vote-list" v-for="(item, key) in list" :key="item+key" @click="handleVote(item.id)">
+      <p class="title">{{item.title}}</p>
+      <p class="mess">
+        <span>{{item.time}}</span>
+        <span>{{item.count}}人参与</span>
+        <span
+          :class="item.status==1?'active':''"
+        >{{item.status==0?'未开始':item.status==1?'进行中':'已经完成'}}</span>
       </p>
-      <div class="btn" :style="{background:(item.isCur?'#999':'')}">{{item.isCur?"已投票":"给TA投票"}}</div>
     </div>
   </div>
 </template>
@@ -16,107 +18,62 @@ import { voteList } from "@api/api";
 export default {
   data() {
     return {
-      list: [
-        {
-          img: require("@assets/images/user.png"),
-          address: "标题111标题标题标题标题",
-          voteNumber: 156,
-          isCur: false
-        },
-        {
-          img: require("@assets/images/user.png"),
-          address: "标题222标题标题标题标题",
-          voteNumber: 256,
-          isCur: false
-        },
-        {
-          img: require("@assets/images/user.png"),
-          address: "标题333标题标题标题标题",
-          voteNumber: 356,
-          isCur: false
-        },
-        {
-          img: require("@assets/images/user.png"),
-          address: "标题444标题标题标题标题",
-          voteNumber: 456,
-          isCur: true
-        },
-        {
-          img: require("@assets/images/user.png"),
-          address: "标题555标题标题标题标题",
-          voteNumber: 556,
-          isCur: true
-        },
-        {
-          img: require("@assets/images/user.png"),
-          address: "标题666标题标题标题标题",
-          voteNumber: 656,
-          isCur: false
-        },
-        {
-          img: require("@assets/images/user.png"),
-          address: "标题555标题标题标题标题",
-          voteNumber: 556,
-          isCur: true
-        },
-        {
-          img: require("@assets/images/user.png"),
-          address: "标题666标题标题标题标题",
-          voteNumber: 656,
-          isCur: false
-        }
-      ]
+      list: []
     };
+  },
+  created() {
+    let params = {
+      page: 1,
+      pagesize: 100
+    };
+    voteList(params).then(res => {
+      let items = res.data.items;
+      this.list = items.map(item => {
+        return {
+          title: item.title,
+          count: item.joincount,
+          status: item.status,
+          time: item.format_start_time,
+          id: item.id
+        };
+      });
+    });
+  },
+  methods: {
+    handleVote(id) {
+      console.log(id);
+      this.$router.push({
+        name: "voteDetail",
+        params: { id }
+      });
+    }
   }
 };
 </script>
 
 <style lang="scss" scoped>
 .vote {
-  padding-bottom: 2rem;
+  padding-top: 0.3rem;
   overflow: hidden;
+  font-size: 0.3rem;
   .vote-list {
-    margin: 0.1rem 0.1rem 0.4rem 0.1rem;
-    width: 3.5rem;
-    height: 4.68rem;
-    float: left;
-    img {
-      width: 100%;
-      height: 80%;
-    }
+    border-bottom: 1px solid #aaa;
+    margin: 0.1rem 0.15rem 0.3rem 0.15rem;
     .title {
-      overflow: hidden;
-      font-size: 0.25rem;
-      font-family: PingFangSC;
-      font-weight: 400;
-      line-height: 16px;
-      span:first-child {
-        display: block;
-        float: left;
-        width: 80%;
-      }
-      span:last-child {
-        display: block;
-        float: right;
-        width: 20%;
-        text-align: right;
-      }
+      font-weight: 500;
+      color: #000;
     }
-    .btn {
-      background: linear-gradient(
-        135deg,
-        rgba(106, 197, 248, 1) 0%,
-        rgba(150, 198, 255, 1) 100%
-      );
-      width: 100%;
-      height: 0.6rem;
+    .mess {
+      margin-top: 0.3rem;
       font-size: 0.25rem;
-      line-height: 0.6rem;
-      text-align: center;
-      color: #fff;
-    }
-    .btn:active {
-      background: rgba(106, 197, 248, 1);
+      margin-bottom: 0.2rem;
+      color: #aaa;
+      > span {
+        margin-right: 0.3rem;
+      }
+      .active {
+        color: #ff4545;
+      }
     }
   }
 }

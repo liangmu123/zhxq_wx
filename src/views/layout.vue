@@ -26,7 +26,7 @@ export default {
   },
   computed: {
     loading() {
-      console.log(this.$store.state.loading)
+      // console.log(this.$store.state.loading)
       return this.$store.state.loading;
     }
   }

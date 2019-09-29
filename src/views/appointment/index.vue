@@ -1,13 +1,13 @@
 <!-- 学分兑换 -->
 <template>
-  <div id="appointment" class="ysp_navigation_bottom">
+  <div id="appointment" class="box-content">
     <div class="image-banner">
       <img src="@assets/images/banner.png" alt="bannner" />
     </div>
     <div class="appointment-content">
       <p class="content-title">建华小区访客预约码</p>
       <div class="content-box">
-        <img src alt />
+        <img :src="image" alt />
       </div>
       <p class="content-refresh">
         <span @click="handleRefresh">
@@ -18,35 +18,41 @@
       <p class="content-refresh">
         <img src="@assets/images/tip.png" alt />二维码生效时间为4小时，请及时使用
       </p>
-      <div class="content-share">
-        <img src="@assets/images/wx.png" alt />
-        <img src="@assets/images/qq.png" alt />
-      </div>
+      <p class="content-share">长按二维码发送给朋友</p>
     </div>
   </div>
 </template>
 <script>
+import { qrcode } from "@api/api";
 export default {
   name: "creditExchange",
   data() {
     return {
+      image: "",
       loading: {
         isLoading: false,
         loadingText: "手动刷新"
       }
     };
   },
-  created() {},
+  created() {
+    this.getCode();
+  },
   methods: {
+    getCode() {
+      qrcode().then(res => {
+        console.log(res);
+        this.image = res.data;
+        this.loading.isLoading = false;
+        this.loading.loadingText = "手动刷新";
+      });
+    },
     handleRefresh() {
       if (!this.loading.isLoading) {
         this.loading.isLoading = true;
         this.loading.loadingText = "正在刷新...";
         if (this.loading.isLoading) {
-          setTimeout(() => {
-            this.loading.isLoading = false;
-            this.loading.loadingText = "手动刷新";
-          }, 2000);
+            this.getCode();
         }
       }
     }
@@ -86,11 +92,10 @@ export default {
       background-size: 100% 100%;
       > img {
         display: block;
-        height: 80%;
-        width: 80%;
+        height: 85%;
+        width: 85%;
         margin: auto;
-        transform: translateY(10%);
-        border: 1px solid red;
+        transform: translateY(8%);
       }
     }
     .content-refresh {
@@ -105,12 +110,11 @@ export default {
       color: #666;
     }
     .content-share {
+      margin-top: 0.35rem;
       width: 100%;
       text-align: center;
-      img {
-        margin: 0.5rem .6rem;
-        height: 0.6rem;
-      }
+      color: red;
+      font-size: 0.25rem;
     }
   }
 }

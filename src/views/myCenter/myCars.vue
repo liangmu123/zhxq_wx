@@ -2,7 +2,12 @@
   <div class="my-cars box-content">
     <userHeader />
     <div class="content">
-      <div class="content-list" v-for="(item,index) in carList" :key="item+index">{{item.title}}</div>
+      <div
+        class="content-list"
+        v-for="(item,index) in carList"
+        :key="item+index"
+        @click="addCar(index)"
+      >{{item}}</div>
       <div class="add-list" @click="addCar">添加车辆信息</div>
     </div>
     <yd-popup :close-on-masker="false" v-model="isShow" position="center" width="90%">
@@ -14,33 +19,20 @@
             <yd-input
               slot="right"
               :show-success-icon="false"
-              v-model="cardInfo.card"
+              v-model="card"
               max="20"
               placeholder="请输入牌照号"
             ></yd-input>
           </yd-cell-item>
-          <yd-cell-item>
-            <span slot="left">手机号：</span>
-            <yd-input slot="right" v-model="cardInfo.phone" regex="mobile" placeholder="请输入手机号码"></yd-input>
-          </yd-cell-item>
-          <yd-cell-item v-show="isSetCard">
-            <span slot="left">验证码：</span>
-            <yd-input
-              slot="right"
-              v-model="cardInfo.yzm"
-              :show-success-icon="false"
-              placeholder="请输入验证码"
-            ></yd-input>
-          </yd-cell-item>
         </yd-cell-group>
-        <span class="set-card" v-show="isSetCard">发送验证码</span>
-        <yd-button type="primary">确认</yd-button>
+        <yd-button type="primary" @click.native="addTrue">确认</yd-button>
       </div>
     </yd-popup>
   </div>
 </template>
 
 <script>
+import { getCarno, updateInfo } from "@api/api";
 import userHeader from "@components/userHeader.vue";
 export default {
   name: "mycars",
@@ -48,34 +40,60 @@ export default {
   data() {
     return {
       isShow: false,
-      cardInfo: {
-        yzm: "",
-        phone: "",
-        card: ""
-      },
-      carList: [
-        { title: "苏E3P1L2" },
-        { title: "苏E3P1L2" },
-        { title: "苏E3P1L2" }
-      ]
+      status: 0, // 0添加 ,1修改
+      card: "",
+      updateIndex: -1,
+      carList: []
     };
   },
-  computed: {
-    isSetCard() {
-      if (/^1[3456789]\d{9}$/.test(this.cardInfo.phone)) {
-        return true;
-      }
-      return false;
-    }
+  created() {
+    getCarno().then(res => {
+      console.log(res);
+      this.carList = res.data;
+    });
   },
   methods: {
-    addCar() {
+    addCar(index) {
+      console.log(typeof val);
+      if (typeof index == "number") {
+        this.status = 1;
+        this.card = this.carList[index];
+        this.updateIndex = index;
+      } else {
+        this.status = 0;
+        this.card = "";
+      }
       this.isShow = !this.isShow;
-      this.cardInfo = {
-        yzm: "",
-        phone: "",
-        card: ""
+    },
+    addTrue() {
+      // console.log(index, typeof index);
+      if (this.status == 1 && this.updateIndex >= 0) {
+        this.carList[this.updateIndex] = this.card;
+      } else {
+        this.carList.push(this.card);
+      }
+
+      console.log(this.carList, this.carList.join(","));
+      let params = {
+        carno: this.carList.join(",")
       };
+      updateInfo(params).then(res => {
+        if (res.code == 1) {
+          this.$dialog.toast({
+            mes: "添加成功",
+            timeout: 1500,
+            icon: "success"
+          });
+          this.isShow = !this.isShow;
+          this.status = 0;
+          this.updateIndex = -1;
+        }else{
+           this.$dialog.toast({
+            mes: res.msg,
+            timeout: 1500,
+          });
+        }
+      });
     }
   }
 };

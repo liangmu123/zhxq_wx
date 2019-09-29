@@ -46,7 +46,7 @@ export default {
         },
         {
           id: 47,
-          title: "投票评选",
+          title: "投票评议",
           link: "/vote",
           src: require("@assets/images/home5.png")
         }

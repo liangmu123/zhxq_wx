@@ -1,6 +1,6 @@
 <!-- 首页 -->
 <template>
-  <div id="dashboard" class="ysp_navigation_bottom">
+  <div id="dashboard" class="box-content">
     <yd-slider autoplay="3000" class="header">
       <yd-slider-item v-for="(item,index) in adverList" :key="index">
         <img :src="item.src" />
@@ -61,7 +61,7 @@ export default {
       });
     });
     imageList( { page: 1, pagesize: 10}).then(res=>{
-      console.log(res.data.items)
+      // console.log(res.data.items)
       this.adverList =res.data.items.map(item=>{
         return{
           src:item.image

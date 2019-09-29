@@ -1,10 +1,11 @@
 <template>
   <div class="repair-detail">
     <p>{{title}}</p>
-    <div class="repair-content">
+
+    <div class="repair-content" v-if="userList.length">
       <i class="el-icon-arrow-left" v-if="userList.length>1" @click="handlePostion(0)"></i>
       <div class="repair-box">
-        <img class="user-header" src="@assets/images/user.png" alt />
+        <img class="user-header" :src="userMess.header" alt />
         <p>维修师傅：{{userMess.name}}</p>
         <p>维修热线：{{userMess.phone}}</p>
         <p>维修时间：{{userMess.time}}</p>
@@ -12,8 +13,8 @@
       </div>
       <i v-if="userList.length>1" class="el-icon-arrow-right" @click="handlePostion(1)"></i>
     </div>
-
-    <div class="cur">
+    <span class="noBody" v-else>暂无相关维修人员,请联系物业人员</span>
+    <div class="cur" v-if="userList.length">
       <img
         :src="userMess.isCur?require('@assets/images/curTrue.png'):require('@assets/images/curFalse.png')"
         alt
@@ -26,13 +27,14 @@
 </template>
 
 <script>
-import { servicelist } from "@api/api";
+import { serviceList, handleLike } from "@api/api";
 export default {
   data() {
     return {
       title: "",
       nowIndex: 0,
       userMess: {
+        id: 0,
         header: "",
         name: "",
         phone: "",
@@ -44,47 +46,26 @@ export default {
     };
   },
   created() {
-    let id = this.$route.params.id;
-    switch (Number(id)) {
-      case 1:
-        this.title = "防水堵漏";
-        break;
-      case 2:
-        this.title = "快速开锁";
-        break;
-      case 3:
-        this.title = "墙体修复";
-        break;
-      case 4:
-        this.title = "空调维修";
-        break;
-      case 5:
-        this.title = "家电维修";
-        break;
-      case 6:
-        this.title = "家具维修";
-        break;
-      case 7:
-        this.title = "玻璃更换";
-        break;
-      default:
-        break;
-    }
     let params = {
+      servicetype_id: this.$route.params.id,
       page: 1,
       pagesize: 100
     };
-    servicelist(params)
+    serviceList(params)
       .then(res => {
+        // console.log(res);
         console.log(res.data.items);
+        this.title = res.data.servicetype_name;
         this.userList = res.data.items.map(item => {
+          console.log(item.image)
           return {
-            header: require("@assets/images/user.png"),
+            id: item.id,
+            header: item.image,
             name: item.name,
             phone: item.mobile,
-            time: "不想干",
-            isCur: true,
-            curNumber: 35
+            time: item.content,
+            isCur: item.liked ? true : false,
+            curNumber: item.likenum
           };
         });
       })
@@ -95,8 +76,22 @@ export default {
   methods: {
     handleCur() {
       if (!this.userMess.isCur) {
-        this.userMess.isCur = !this.userMess.isCur;
-        this.userMess.curNumber++;
+        let params = {
+          id: this.userMess.id,
+          type: 1
+        };
+        handleLike(params).then(res => {
+          console.log(res);
+          if (res.code == 1) {
+            this.$dialog.toast({
+              mes: "点赞成功",
+              timeout: 1500,
+              icon: "success"
+            });
+            this.userMess.isCur = !this.userMess.isCur;
+            this.userMess.curNumber++;
+          }
+        });
       }
     },
     getList() {

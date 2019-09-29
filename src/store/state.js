@@ -5,5 +5,6 @@ import { asyncRouterMap } from "../router";
 export default {
     user: null,
     loading: false,
+    token:'',
     routers: asyncRouterMap
 };

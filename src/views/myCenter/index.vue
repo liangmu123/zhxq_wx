@@ -17,7 +17,7 @@
           </span>
           <span slot="left">{{item.title}}</span>
           <span slot="right">
-            <span v-if="index==5" class="circle-red">2</span>
+            <span v-if="item.number" class="circle-red">{{item.number }}</span>
             {{item.exegesis||''}}
           </span>
         </yd-cell-item>
@@ -55,13 +55,9 @@ export default {
           link: "/center/myCars"
         },
         {
-          title: "我的访客",
-          src: require("../../assets/images/user5.png"),
-          link: "/center/myVisitors"
-        },
-        {
           title: "我的工单",
           exegesis: "网格员专属",
+          number: 2,
           src: require("../../assets/images/user6.png"),
           link: "/center/myWO"
         }
@@ -71,7 +67,6 @@ export default {
 };
 </script>
 <style  lang="scss" scoped>
-
 .nav {
   .circle-red {
     display: block;

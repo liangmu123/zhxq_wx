@@ -4,8 +4,8 @@
       <img :src="userMess.img" alt />
       <div class="header-mess">
         <p class="mess">
-          {{userMess.name}}
-          <span>{{userMess.capacity}}</span>
+          {{userMess.userName}}
+          <span>{{userMess.role}}</span>
         </p>
         <p class="adress">住址：{{userMess.address}}</p>
       </div>
@@ -23,12 +23,18 @@ export default {
   data() {
     return {
       userMess: {
-        img: require("../assets/images/user.png"),
-        name: "周凯",
-        capacity: "业主",
+        img: "",
+        userName: "周凯",
+        role: "业主",
         address: "11幢2004"
       }
     };
+  },
+  created() {
+    let user = this.$store.state.user;
+    console.log(user);
+    this.userMess = user;
+    this.userMess.img = user.image;
   }
 };
 </script>
@@ -50,7 +56,7 @@ export default {
     float: left;
     .mess {
       margin-top: 0.25rem;
-      width: 2.2rem;
+      width:3.2rem;
       font-weight: bold;
       > span {
         margin-top: 0.03rem;

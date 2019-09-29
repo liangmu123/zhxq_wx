@@ -38,6 +38,14 @@ html, body {
     clear: both;
 }
 
+.noBody {
+    padding-top:.5rem;
+    display: block;
+    font-size: .28rem;
+    width: 100%;
+    text-align: center;
+}
+
 /* 单行文本溢出隐藏 */
 
 .textoverflow {
