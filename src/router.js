@@ -4,15 +4,12 @@ import layout from './views/layout.vue'
 import infoDetail from './views/home/infoDetail.vue'
 import store from './store'
 import { userInfo } from '@api/api'
-import { getQueryString } from '@/api/getData'
-
+import  base  from "@/common/base";
 
 Vue.use(Router)
 
 
 export const asyncRouterMap =
-  // mode: 'history',
-  // base: process.env.BASE_URL,
   [
     {
       path: '/',
@@ -248,40 +245,40 @@ const router = new Router({
   routes: asyncRouterMap
 });
 
+//用户状态验证
+let userVerification = (next) => {
+  userInfo().then(res => {
+    if (res.data.role == null) {
+      next('/login')
+    } else if (!localStorage.user) {
+      let user = {
+        role: res.data.rolename,
+        userName: res.data.person.name,
+        mobile: res.data.person.mobile,
+        image: res.data.person.image,
+        address: res.data.person.room_text
+      };
+      store.dispatch("setUser", user);
+      var userStr = JSON.stringify(user);
+      localStorage.setItem("user", userStr);
+      next();
+    } else {
+      next();
+    }
+  })
+}
+
 router.beforeEach((to, from, next) => {
-
-  // 微信分享
-  // WX_SHARE(to)
-
   // 获取token
   // console.log(store.state)
   if (!store.state.token) {
     console.log(1111111)
     store.dispatch('getToken', to.query.access_token)
       .then(() => {
-        if (getQueryString('token')) {
-          userInfo().then(res => {
-            if (res.data.role == null) {
-              next('/login')
-            } else if (!localStorage.user) {
-              let user = {
-                role: res.data.rolename,
-                userName: res.data.person.name,
-                mobile: res.data.person.mobile,
-                image: res.data.person.image,
-                address: res.data.person.room_text
-              };
-              store.dispatch("setUser", user);
-              var userStr = JSON.stringify(user);
-              localStorage.setItem("user", userStr);
-              next();
-            } else {
-              next();
-            }
-
-          })
+        // console.log(base)
+        if (base.getQueryString('token')) {
+          userVerification(next)
         }
-
         // next()
       })
   } else {
@@ -289,28 +286,8 @@ router.beforeEach((to, from, next) => {
     if (to.path == "/login") {
       next();
     } else {
-      userInfo().then(res => {
-        if (res.data.role == null) {
-          next('/login')
-        } else if (!localStorage.user) {
-          let user = {
-            role: res.data.rolename,
-            userName: res.data.person.name,
-            mobile: res.data.person.mobile,
-            image: res.data.person.image,
-            address: res.data.person.room_text
-          };
-          store.dispatch("setUser", user);
-          var userStr = JSON.stringify(user);
-          localStorage.setItem("user", userStr);
-          next();
-        } else {
-          next();
-        }
-
-      })
+      userVerification(next)
     }
-
   }
   // next()
 })

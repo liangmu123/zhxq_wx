@@ -11,7 +11,7 @@ module.exports = {
         //   errors: true
         // },
         // open: false, // 是否打开浏览器
-        host: "localhost",
+        // host: "localhost",
         port: "8080", // 代理断就
         https: false,
         hotOnly: false, // 热更新

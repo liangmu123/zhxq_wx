@@ -1,10 +1,10 @@
 import axios from "./axios";
-
+let method = 'get'
 //首页轮播图
 export function imageList(params) {
     return axios({
         url: "/api/commercialservice/getlist",
-        method: "get",
+        method,
         params
     });
 }

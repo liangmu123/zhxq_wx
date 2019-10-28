@@ -1,4 +1,4 @@
-import { getQueryString } from '@/api/getData.js'
+import base from "@/common/base";
 export default {
     setUser: ({ commit }, user) => {
         commit("SET_USER", user)
@@ -11,7 +11,7 @@ export default {
             commit('SET_TOKEN', access_token)
             return
         }
-        var token = getQueryString('token');
+        var token = base.getQueryString('token');
         if (token == null) {
             var url = encodeURIComponent(window.location.href.split('?')[0])
             //   console.log(window.location.href.split('?')[0])

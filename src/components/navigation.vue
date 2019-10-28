@@ -3,8 +3,8 @@
   <yd-tabbar fixed color="#666666" fontsize=".25rem" padding=".1rem" bgcolor="#fff">
     <yd-tabbar-item
       v-for="(item,index) in navList"
-      v-if="item.hidden"
       :key="index"
+      v-show="item.hidden"
       :title="item.title"
       :link="item.link"
       :style="modular==index?active:false"
@@ -60,11 +60,9 @@ export default {
     // 获取所有栏目
     get_all_columns() {
       var routes = this.$router.options.routes;
-
       for (let item of routes) {
         this.routes.push(item.path);
       }
-
       for (let item of routes) {
         // console.log(item);
         var obj = {};
@@ -79,9 +77,11 @@ export default {
     },
     // 切换栏目
     handleRouteChange(val) {
+       console.log(this.mtd.getQueryString('token'))
       var route = val.matched[0].path;
-      this.modular =
-        this.routes.indexOf(route) == -1 ? 0 : this.routes.indexOf(route);
+      this.modular = this.routes.includes(route)
+        ? this.routes.indexOf(route)
+        : 0;
     }
   }
 };
