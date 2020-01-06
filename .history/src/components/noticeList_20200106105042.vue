@@ -56,7 +56,7 @@ export default {
     width: 100%;
     li {
       width: 100%;
-      height: 1rem;
+      height: 0.8rem;
       line-height: 1rem;
       overflow: hidden;
       border-bottom:1px solid #eee;

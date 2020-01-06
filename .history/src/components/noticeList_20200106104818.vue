@@ -50,16 +50,14 @@ export default {
 .notice-list {
   min-height: 100%;
   font-size:0.3rem;
-  background-color: #fff;
   ul {
     padding: 0.2rem;
     width: 100%;
     li {
       width: 100%;
-      height: 1rem;
-      line-height: 1rem;
+      height: 0.8rem;
+      line-height: 0.8rem;
       overflow: hidden;
-      border-bottom:1px solid #eee;
       span {
         width: 75%;
         display: block;

@@ -72,7 +72,7 @@ export default {
       float: right;
       margin-right: .1rem;
       i{
-        margin-right:0.2rem;
+        margin-right:0.3rem;
       }
     }
   }

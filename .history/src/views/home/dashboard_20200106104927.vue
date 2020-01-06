@@ -113,7 +113,6 @@ export default {
       width: 100%;
       color: #000;
       font-size: 0.3rem;
-      padding-bottom:0.3rem;
       border-bottom:1px solid #eee;
       span {
         float: left;

@@ -24,8 +24,7 @@ export default {
   created() {
     let params = {
       page: 1,
-      pagesize: 100,
-      
+      pagesize: 100
     };
     voteList(params).then(res => {
       let items = res.data.items;

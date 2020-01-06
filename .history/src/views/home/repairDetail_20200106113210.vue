@@ -5,7 +5,7 @@
     <div class="repair-content" v-if="userList.length">
       <i class="el-icon-arrow-left" v-if="userList.length>1" @click="handlePostion(0)"></i>
       <div class="repair-box">
-        <img class="user-header" :src="userMess.header" alt />
+        <img class="user-header" v- :src="userMess.header" alt />
         <p>维修师傅：{{userMess.name}}</p>
         <p>维修热线：{{userMess.phone}}</p>
         <p>维修时间：{{userMess.time}}</p>

@@ -10,7 +10,7 @@
         <p>维修热线：{{userMess.phone}}</p>
         <p>维修时间：{{userMess.time}}</p>
         <span class="btn">
-          <a :href="'tel:' + userMess.phone">一键拨号</a>
+          <a>一键拨号</a>
         </span>
       </div>
       <i v-if="userList.length>1" class="el-icon-arrow-right" @click="handlePostion(1)"></i>

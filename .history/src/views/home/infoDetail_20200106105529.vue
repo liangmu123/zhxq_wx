@@ -71,9 +71,6 @@ export default {
       display: block;
       float: right;
       margin-right: .1rem;
-      i{
-        margin-right:0.2rem;
-      }
     }
   }
   p:last-child{

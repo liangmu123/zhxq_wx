@@ -3,7 +3,7 @@
     <p class="title">{{article.title}}</p>
     <p class="biref">
       <span>{{article.createtime}}</span>
-      <span><i class="el-icon-view"></i>{{article.weigh}}</span>
+      <span>{{article.weigh}}</span>
     </p>
     <p v-html="article.content"></p>
   </div>
@@ -71,9 +71,6 @@ export default {
       display: block;
       float: right;
       margin-right: .1rem;
-      i{
-        margin-right:0.2rem;
-      }
     }
   }
   p:last-child{

@@ -80,9 +80,6 @@ export default {
 };
 </script>
 <style lang="scss">
-.box-content{
-  background-color:#fff;
-}
 .yd-slider-pagination {
   bottom: 0.5rem;
 }
@@ -106,15 +103,12 @@ export default {
     }
   }
   .notice-content {
-    
     > p {
       overflow: hidden;
       margin-top: 0.3rem;
       width: 100%;
       color: #000;
       font-size: 0.3rem;
-      padding-bottom:0.3rem;
-      border-bottom:1px solid #eee;
       span {
         float: left;
         display: block;
